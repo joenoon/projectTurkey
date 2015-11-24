@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+$:.unshift("/Library/RubyMotion/lib")
+require 'motion/project/template/ios'
+
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+end
+
+Motion::Project::App.setup do |app|
+  # Use `rake config' to see complete project settings.
+  app.name = 'sampleMotionAppMotion'
+
+  app.pods do
+    pod 'React', :path => '../node_modules/react-native', :subspecs => %w(
+      Core
+      ART
+      RCTActionSheet
+      RCTAdSupport
+      RCTGeolocation
+      RCTImage
+      RCTNetwork
+      RCTPushNotification
+      RCTSettings
+      RCTText
+      RCTVibration
+      RCTWebSocket
+      RCTLinkingIOS
+    )
+
+    if app.development?
+      post_install do |installer|
+        build_settings = installer.pods_project.build_settings('Release')
+        pre_defs = build_settings['GCC_PREPROCESSOR_DEFINITIONS']
+        pre_defs.delete('RELEASE=1')
+        pre_defs.push('DEBUG=1')
+        App.log "build_settings", build_settings.inspect
+      end
+    end
+  end
+
+  app.info_plist['NSAppTransportSecurity'] = {
+    'NSAllowsArbitraryLoads' => true
+  }
+
+end

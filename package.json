@@ -1,0 +1,13 @@
+{
+  "name": "sampleMotionApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "dependencies": {
+    "firebase": "2.3.1",
+    "react-native": "^0.14.2",
+    "rx-lite": "^4.0.6"
+  }
+}
